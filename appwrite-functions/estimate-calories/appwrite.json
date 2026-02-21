@@ -1,0 +1,9 @@
+{
+    "runtime": "bun-1.0",
+    "entrypoint": "src/main.js",
+    "timeout": 20,
+    "ignore": [
+        "node_modules",
+        ".npm"
+    ]
+}

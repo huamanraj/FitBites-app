@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PRIMARY SEO TAGS -->
+    <title>Fit Bites! | Effortless AI Calorie Tracking & Macro Analysis</title>
+    <meta name="description" content="The ultimate minimalist calorie tracker. Log meals like '1 roti' or '100g rice' with AI. No ads, 100% free, and open source. One-use app for effortless health.">
+    <meta name="keywords" content="AI calorie tracker, minimalist nutrition app, track roti calories, free macro analyzer, open source health app, simple calorie counter">
+    <link rel="canonical" href="https://fitbites.app">
+
+    <!-- OPEN GRAPH / SOCIAL -->
+    <meta property="og:title" content="Fit Bites! | Effortless AI Calorie Tracking">
+    <meta property="og:description" content="Log meals in seconds with AI. The most minimalist calorie tracker for a better rhythm.">
+    <meta property="og:image" content="image_95e166.jpg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- LUCIDE ICONS -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text-main: #000000;
+            --text-secondary: #6e6e73;
+            --accent: #000000;
+            --radius-full: 100px;
+            --transition: all 0.8s cubic-bezier(0.15, 1, 0.3, 1);
+            --container-padding: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        .serif-italic {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        /* NAVIGATION */
+        nav {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            text-decoration: none;
+            color: black;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo img {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+        }
+
+        .nav-center {
+            display: none;
+            gap: 24px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-label {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            color: #666;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 12vw, 5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            max-width: 540px;
+            margin: 0 auto 32px;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .btn-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border: 1.5px solid #000;
+            border-radius: 100px;
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .btn-pill:hover {
+            background: black;
+            color: white;
+        }
+
+        /* GRADIENT BLOBS */
+        .blob-bg {
+            position: absolute;
+            width: min(100vw, 800px);
+            aspect-ratio: 4/3;
+            background: radial-gradient(circle, rgba(255, 100, 150, 0.15) 0%, rgba(255, 200, 100, 0.1) 40%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -30%);
+            z-index: -1;
+            filter: blur(40px);
+        }
+
+        .hero-image {
+            margin-top: 40px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .mockup-main {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 44px;
+            border: 10px solid #1c1c1e;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.12);
+            background: white;
+            z-index: 2;
+        }
+
+        .mockup-main img { width: 100%; display: block; border-radius: 34px; }
+
+        /* CONTENT SECTIONS */
+        .split-header {
+            padding: 100px 0 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .split-header h2 {
+            font-size: clamp(2.2rem, 8vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+        }
+
+        .split-header p {
+            max-width: 420px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* GRID STEPS */
+        .step-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            padding-bottom: 80px;
+        }
+
+        .step-item .num {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 8px;
+            color: #d1d1d6;
+        }
+
+        .step-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .step-item p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ANALYTICS PREVIEW SECTION */
+        .analytics-preview {
+            position: relative;
+            border-radius: 32px;
+            overflow: hidden;
+            background: #fbfbfd;
+            padding: 60px 20px;
+            border: 1px solid #f2f2f7;
+            margin-bottom: 100px;
+            text-align: center;
+        }
+
+        .analytics-preview img {
+            width: 100%;
+            max-width: 240px;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border: 6px solid #111;
+        }
+
+        /* BOTTOM CTA */
+        .bottom-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #ffedf2 100%);
+            text-align: center;
+            border-radius: 40px 40px 0 0;
+            overflow: hidden;
+        }
+
+        .bottom-section h2 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin-bottom: 32px;
+            line-height: 1.1;
+        }
+
+        .bottom-section .app-reveal {
+            width: 100%;
+            max-width: 320px;
+            margin-top: 40px;
+            transform: translateY(60px);
+            transition: var(--transition);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #8e8e93;
+            background: #fff;
+        }
+
+        .footer-brand {
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 1rem;
+        }
+
+        /* REVEAL ON SCROLL */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.15, 1, 0.3, 1);
+        }
+
+        [data-reveal].active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* DESKTOP REFINEMENTS */
+        @media (min-width: 768px) {
+            :root { --container-padding: 40px; }
+            .nav-center { display: flex; }
+            .hero { padding-top: 180px; }
+            .hero-image { margin-top: 60px; }
+            .mockup-main { max-width: 320px; }
+            .split-header { flex-direction: row; align-items: flex-end; justify-content: space-between; padding: 140px 0 80px; }
+            .step-grid { grid-template-columns: repeat(3, 1fr); gap: 60px; padding-bottom: 140px; }
+            .analytics-preview { padding: 100px 0; border-radius: 40px; }
+            .analytics-preview img { max-width: 280px; }
+            .bottom-section .app-reveal { max-width: 450px; transform: translateY(100px); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="container nav-inner">
+                <a href="#" class="logo" aria-label="Fit Bites! Home">
+                    <img src="image_95e166.jpg" alt="Logo">
+                    Fit Bites!
+                </a>
+                <div class="nav-center" role="navigation">
+                    <a href="#workflow">Workflow</a>
+                    <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+                </div>
+                <a href="#" class="btn-pill" aria-label="Download the App">APK <i data-lucide="arrow-right" style="width: 14px;"></i></a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero container">
+            <div class="hero-label" data-reveal>A simple, one-use app.</div>
+            <h1 data-reveal>Track Calories <br><span class="serif-italic">Effortlessly.</span></h1>
+            <p data-reveal>No bloat. No complex menus. Just open, log, and stay in control. Fit Bites! is the minimalist AI companion for your health.</p>
+            
+            <a href="#" class="btn-pill" data-reveal>Try Fit Bites! Free <i data-lucide="arrow-right" style="width: 14px;"></i></a>
+
+            <div class="hero-image" data-reveal>
+                <div class="blob-bg"></div>
+                <div class="mockup-main">
+                    <img src="image_95e17e.png" alt="Meal Logging Interface showing plain text input">
+                </div>
+            </div>
+        </section>
+
+        <!-- THREE STEPS SECTION -->
+        <section class="container" id="workflow">
+            <div class="split-header">
+                <h2 data-reveal>Three Steps to <br><span class="serif-italic">Perfect Rhythm</span></h2>
+                <p data-reveal>Fit Bites! removes the friction of daily tracking. Designed for speed, built for simplicity.</p>
+            </div>
+
+            <div class="step-grid">
+                <article class="step-item" data-reveal>
+                    <span class="num">01</span>
+                    <h4>Add Goals</h4>
+                    <p>Set your daily calorie targets. We establish the rhythm so you know exactly where you stand every day.</p>
+                </article>
+                <article class="step-item" data-reveal>
+                    <span class="num">02</span>
+                    <h4>Log with AI</h4>
+                    <p>Type naturally: "1 roti" or "100g rice." Our AI instantly calculates calories and macros without manual searching.</p>
+                </article>
+                <article class="step-item" data-reveal>
+                    <span class="num">03</span>
+                    <h4>View Analytics</h4>
+                    <p>See your progress visualized. A clean, effortless breakdown of your protein, carbs, and fats at a glance.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ANALYTICS PREVIEW SECTION -->
+        <section class="container">
+            <div class="analytics-preview" data-reveal>
+                <div style="position: absolute; top: -50%; left: -20%; width: 100%; height: 200%; background: radial-gradient(circle, rgba(100, 200, 255, 0.1) 0%, transparent 60%); z-index: 0; filter: blur(60px);"></div>
+                <div style="position: relative; z-index: 1;">
+                    <div class="serif-italic" style="font-size: 1.8rem; margin-bottom: 24px;">Effortless Analytics.</div>
+                    <img src="image_95e180.png" alt="Macro Analytics UI dashboard">
+                </div>
+            </div>
+        </section>
+
+        <!-- BOTTOM CTA -->
+        <section class="bottom-section">
+            <div class="container">
+                <h2 class="serif-italic">Log in seconds.</h2>
+                <a href="#" class="btn-pill" style="background: white; border: none;">Download APK <i data-lucide="arrow-right" style="width: 14px;"></i></a>
+                <br>
+                <img src="image_95e17e.png" alt="App Preview" class="app-reveal">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <span class="footer-brand">Fit Bites!</span>
+            <p>100% Free & Open Source. Built for simplicity and health.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Reveal on scroll logic
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
