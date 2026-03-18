@@ -25,8 +25,7 @@ export default function RegisterScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
-  const { register, loginWithGoogle } = useAuth();
+  const { register } = useAuth();
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
@@ -53,25 +52,6 @@ export default function RegisterScreen() {
     }
   }, [name, email, password, register, router]);
 
-  const handleGoogleLogin = useCallback(async () => {
-    setGoogleLoading(true);
-    try {
-      await loginWithGoogle();
-      router.replace("/(drawer)/today" as any);
-    } catch (err: any) {
-      if (!err?.message?.includes("cancelled")) {
-        Alert.alert(
-          "Google Sign-In Failed",
-          err?.message || "Could not sign in with Google.",
-        );
-      }
-    } finally {
-      setGoogleLoading(false);
-    }
-  }, [loginWithGoogle, router]);
-
-  const isDisabled = loading || googleLoading;
-
   return (
     <Animated.View
       entering={FadeIn.duration(400)}
@@ -89,7 +69,6 @@ export default function RegisterScreen() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {/* Brand */}
           <Animated.View
             entering={FadeInDown.delay(60).springify()}
             style={styles.brandBlock}
@@ -103,7 +82,6 @@ export default function RegisterScreen() {
             <Text style={styles.subtitle}>Create your account.</Text>
           </Animated.View>
 
-          {/* Form */}
           <Animated.View
             entering={FadeInDown.delay(120).springify()}
             style={styles.form}
@@ -116,7 +94,7 @@ export default function RegisterScreen() {
                 autoCapitalize="words"
                 value={name}
                 onChangeText={setName}
-                editable={!isDisabled}
+                editable={!loading}
               />
             </View>
             <View style={styles.inputWrap}>
@@ -129,7 +107,7 @@ export default function RegisterScreen() {
                 autoCorrect={false}
                 value={email}
                 onChangeText={setEmail}
-                editable={!isDisabled}
+                editable={!loading}
               />
             </View>
             <View style={styles.inputWrap}>
@@ -140,18 +118,17 @@ export default function RegisterScreen() {
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
-                editable={!isDisabled}
+                editable={!loading}
               />
             </View>
 
-            {/* Create Account button */}
             <Pressable
               style={({ pressed }) => [
                 styles.button,
-                (pressed || isDisabled) && styles.buttonPressed,
+                (pressed || loading) && styles.buttonPressed,
               ]}
               onPress={handleRegister}
-              disabled={isDisabled}
+              disabled={loading}
             >
               {loading ? (
                 <ActivityIndicator color="#FFFFFF" size="small" />
@@ -160,40 +137,10 @@ export default function RegisterScreen() {
               )}
             </Pressable>
 
-            {/* Divider */}
-            <View style={styles.divider}>
-              <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>or</Text>
-              <View style={styles.dividerLine} />
-            </View>
-
-            {/* Google Sign In */}
-            <Pressable
-              style={({ pressed }) => [
-                styles.googleBtn,
-                (pressed || isDisabled) && styles.googleBtnPressed,
-              ]}
-              onPress={handleGoogleLogin}
-              disabled={isDisabled}
-            >
-              {googleLoading ? (
-                <ActivityIndicator color="#555555" size="small" />
-              ) : (
-                <>
-                  <Image
-                    source={require("../assets/images/google.webp")}
-                    style={styles.googleIcon}
-                    resizeMode="contain"
-                  />
-                  <Text style={styles.googleBtnText}>Continue with Google</Text>
-                </>
-              )}
-            </Pressable>
-
             <Pressable
               onPress={() => router.back()}
               style={styles.linkContainer}
-              disabled={isDisabled}
+              disabled={loading}
             >
               <Text style={styles.linkText}>
                 Already have an account?{" "}
@@ -277,45 +224,6 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "700",
-  },
-  divider: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-    marginVertical: 2,
-  },
-  dividerLine: {
-    flex: 1,
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: "#DDDDDD",
-  },
-  dividerText: {
-    fontFamily: "Questrial",
-    fontSize: 13,
-    color: "#BBBBBB",
-  },
-  googleBtn: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 10,
-    borderWidth: 1,
-    borderColor: "#E5E5E5",
-    borderRadius: 14,
-    paddingVertical: 14,
-    backgroundColor: "#FFFFFF",
-    minHeight: 52,
-  },
-  googleBtnPressed: { backgroundColor: "#F5F5F5" },
-  googleIcon: {
-    width: 22,
-    height: 22,
-  },
-  googleBtnText: {
-    fontFamily: "Questrial",
-    fontSize: 15,
-    fontWeight: "600",
-    color: "#333333",
   },
   linkContainer: {
     alignItems: "center",

@@ -1,7 +1,6 @@
 import {
   getCurrentUser,
   login,
-  loginWithGoogle,
   logout,
   register,
   User,
@@ -18,7 +17,6 @@ interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  loginWithGoogle: () => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   updateUser: (updates: Partial<User>) => void;
@@ -52,11 +50,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(u);
   }, []);
 
-  const handleGoogleLogin = useCallback(async () => {
-    const u = await loginWithGoogle();
-    setUser(u);
-  }, []);
-
   const handleRegister = useCallback(
     async (name: string, email: string, password: string) => {
       const u = await register(name, email, password);
@@ -80,7 +73,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         user,
         isLoading,
         login: handleLogin,
-        loginWithGoogle: handleGoogleLogin,
         register: handleRegister,
         logout: handleLogout,
         updateUser: handleUpdateUser,
