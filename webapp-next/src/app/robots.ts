@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://fitbites.app/sitemap.xml',
+    sitemap: 'https://fitbites.amanraj.me/sitemap.xml',
   };
 }

@@ -17,7 +17,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://fitbites.app'),
+  metadataBase: new URL('https://fitbites.amanraj.me'),
   title: {
     default: 'FitBites – Free AI Calorie Tracker | Simple as Taking Notes',
     template: '%s | FitBites',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://fitbites.app',
+    url: 'https://fitbites.amanraj.me',
     siteName: 'FitBites',
     title: 'FitBites – Free AI Calorie Tracker | Simple as Taking Notes',
     description:
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     images: ['/og-image.png'],
   },
   icons: { icon: '/icon.png', apple: '/icon.png' },
-  alternates: { canonical: 'https://fitbites.app' },
+  alternates: { canonical: 'https://fitbites.amanraj.me' },
   manifest: '/manifest.json',
 };
 
