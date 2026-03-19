@@ -4,15 +4,21 @@ import { useAuth } from '@/context/auth-context';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const { login, user, isLoading } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && user) {
+      router.replace('/today');
+    }
+  }, [user, isLoading, router]);
 
   const handleLogin = useCallback(async () => {
     if (!email.trim() || !password.trim()) {

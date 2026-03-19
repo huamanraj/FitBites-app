@@ -13,6 +13,7 @@
   --color-fat: #F97316;
   --color-green: #22C55E;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
 }
 
 body {
@@ -21,6 +22,10 @@ body {
   color: #111111;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
 }
 
 @keyframes shimmer {

@@ -4,7 +4,7 @@ import { useAuth } from '@/context/auth-context';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -12,8 +12,14 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { register } = useAuth();
+  const { register, user, isLoading } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && user) {
+      router.replace('/today');
+    }
+  }, [user, isLoading, router]);
 
   const handleRegister = useCallback(async () => {
     if (!name.trim() || !email.trim() || !password.trim()) {
