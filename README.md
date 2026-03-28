@@ -7,7 +7,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ec49834e-9803-4abf-a53a-ce95232875a0" width="250" />
+  <img src="https://github.com/user-attachments/assets/dd10132d-b1ef-4fde-9af7-af0970289824" width="250" />
+  <img src="https://github.com/user-attachments/assets/b460cbea-1550-40ac-b357-ce3369895d1f" width="250"/>
+</p>
 FitBites is a free, open-source AI food analyzer and calorie tracker. Just type what you ate — like "2 roti and dal" — and the AI instantly calculates calories, protein, carbs, and fat. No barcode scanning. No complex menus. Just type and go.
 
 ## Features
